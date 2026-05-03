@@ -24,23 +24,6 @@ characters/
   nyx.html
 ```
 
-## Deploy to GitHub Pages
-
-1. Create a new repository on GitHub (e.g. `mythos`)
-2. Push this folder to the `main` branch:
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/YOUR_USERNAME/mythos.git
-git push -u origin main
-```
-
-3. Go to **Settings → Pages** in the repository
-4. Under "Source", select `main` branch, root folder (`/`)
-5. Save — your site will be live at `https://YOUR_USERNAME.github.io/mythos/` within a minute
-
 ## Adding new stories
 
 Each story follows the same template as the existing ones:
