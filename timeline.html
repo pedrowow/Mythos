@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeline — Mythos</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .tl-wrap {
+      overflow-x: auto;
+      padding: 0 2rem 3rem;
+      cursor: grab;
+      user-select: none;
+    }
+    .tl-wrap:active { cursor: grabbing; }
+    .tl-canvas {
+      min-width: 1400px;
+      padding: 2rem 4rem 3rem;
+      position: relative;
+    }
+
+    /* ERA BANDS */
+    .era-band {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-bottom: 0;
+      height: 36px;
+    }
+    .era-seg {
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-right: 1px solid rgba(0,0,0,0.2);
+    }
+    .era-seg:last-child { border-right: none; }
+
+    /* SPINE */
+    .tl-spine {
+      height: 2px;
+      background: linear-gradient(to right, #2a4a32, #4a7a5a, #c9a84c, #7a6028);
+      margin: 0;
+      position: relative;
+    }
+
+    /* TRACKS */
+    .tl-tracks {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .tl-track {
+      display: flex;
+      align-items: stretch;
+      min-height: 44px;
+      border-bottom: 1px solid rgba(120,180,120,0.07);
+      position: relative;
+    }
+
+    .track-label {
+      width: 140px;
+      min-width: 140px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      padding: 0 1rem 0 0;
+      flex-shrink: 0;
+      position: sticky;
+      left: 0;
+      background: var(--bg);
+      z-index: 10;
+      border-right: 1px solid rgba(120,180,120,0.1);
+    }
+
+    .track-body {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 6px 0;
+    }
+
+    /* EVENTS */
+    .tl-event {
+      position: absolute;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    .tl-event-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      flex-shrink: 0;
+      transition: transform 0.15s;
+    }
+
+    .tl-event:hover .tl-event-dot { transform: scale(1.4); }
+
+    .tl-event-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      margin-top: 4px;
+      transition: color 0.15s;
+      text-align: center;
+      max-width: 110px;
+      white-space: normal;
+      line-height: 1.3;
+    }
+
+    .tl-event:hover .tl-event-label { color: var(--text); }
+
+    /* BARS (duration events) */
+    .tl-bar {
+      position: absolute;
+      height: 22px;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      overflow: hidden;
+      cursor: pointer;
+      transition: filter 0.15s;
+    }
+    .tl-bar:hover { filter: brightness(1.2); }
+
+    /* CONNECTOR LINES */
+    .tl-connector {
+      position: absolute;
+      border-left: 1px dashed rgba(201,168,76,0.2);
+      pointer-events: none;
+    }
+
+    /* TOOLTIP */
+    .tl-tooltip {
+      position: fixed;
+      background: var(--bg-card);
+      border: 1px solid var(--border-hover);
+      border-radius: 4px;
+      padding: 1rem 1.25rem;
+      max-width: 260px;
+      z-index: 200;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .tl-tooltip.visible { opacity: 1; }
+    .tl-tooltip-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+    .tl-tooltip-text {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 0.5rem;
+    }
+    .tl-tooltip-link {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      color: var(--gold-dim);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    /* EPOCH MARKERS */
+    .epoch-marker {
+      position: absolute;
+      top: 0;
+      width: 1px;
+      background: rgba(120,180,120,0.12);
+      pointer-events: none;
+    }
+    .epoch-label {
+      position: absolute;
+      top: -28px;
+      transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    /* LEGEND */
+    .tl-legend {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .legend-bar {
+      width: 24px; height: 8px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="site-title">Mythos</a>
+  <nav>
+    <a href="characters.html">Characters</a>
+    <a href="timeline.html" style="color:var(--gold);">Timeline</a>
+    <a href="index.html#stories">Stories</a>
+  </nav>
+</header>
+
+<div style="max-width:1200px; margin:0 auto; padding:3rem 2rem 1rem;">
+  <p class="story-breadcrumb"><a href="index.html">Mythos</a> &nbsp;/&nbsp; Timeline</p>
+  <div class="section-header">
+    <span class="section-label">Overview</span>
+    <span class="section-title">From Chaos to the Olympian Age</span>
+  </div>
+  <p style="font-size:1rem; color:var(--text-muted); max-width:600px; margin-bottom:2rem; line-height:1.7;">
+    Greek mythological time does not map onto history — it is a symbolic sequence. The eras below show the major transitions: from primordial emptiness, through the Titan dynasty, into the Olympian order, and finally the age of heroes. Scroll horizontally to explore. Hover any event for detail.
+  </p>
+
+  <div class="tl-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#4a9a7a;"></div> Primordials</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#b04040;"></div> Titans</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#c9a84c;"></div> Olympians</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4a7aaa;"></div> Cosmic events</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#cc7744;"></div> Mankind</div>
+    <div class="legend-item"><div class="legend-bar" style="background:rgba(180,100,100,0.35);"></div> War / conflict</div>
+    <div class="legend-item"><div class="legend-bar" style="background:rgba(201,168,76,0.25);"></div> Reign / era</div>
+  </div>
+</div>
+
+<div class="tl-wrap" id="tlWrap">
+  <div class="tl-canvas" id="tlCanvas">
+
+    <!-- ERA COLOUR BANDS -->
+    <div class="era-band" style="margin-left:140px;">
+      <div class="era-seg" style="width:15%; background:rgba(74,154,122,0.06); color:#4a9a7a;">Primordial Age</div>
+      <div class="era-seg" style="width:22%; background:rgba(176,64,64,0.06); color:#b04040;">Age of the Titans</div>
+      <div class="era-seg" style="width:20%; background:rgba(180,100,100,0.08); color:#b06060;">Titanomachy</div>
+      <div class="era-seg" style="width:43%; background:rgba(201,168,76,0.05); color:#c9a84c;">Olympian Age</div>
+    </div>
+
+    <!-- SPINE -->
+    <div style="display:flex; align-items:center; margin-bottom:0;">
+      <div style="width:140px; min-width:140px;"></div>
+      <div class="tl-spine" style="flex:1;"></div>
+    </div>
+
+    <!-- TRACKS -->
+    <div class="tl-tracks" id="tracks" style="margin-top:0;">
+
+      <!-- TRACK: COSMOS -->
+      <div class="tl-track">
+        <div class="track-label">Cosmos</div>
+        <div class="track-body" id="t-cosmos"></div>
+      </div>
+
+      <!-- TRACK: PRIMORDIALS -->
+      <div class="tl-track">
+        <div class="track-label">Primordials</div>
+        <div class="track-body" id="t-primordials"></div>
+      </div>
+
+      <!-- TRACK: TITANS -->
+      <div class="tl-track">
+        <div class="track-label">Titans</div>
+        <div class="track-body" id="t-titans"></div>
+      </div>
+
+      <!-- TRACK: CONFLICT -->
+      <div class="tl-track">
+        <div class="track-label">Wars &amp; Conflict</div>
+        <div class="track-body" id="t-conflict"></div>
+      </div>
+
+      <!-- TRACK: OLYMPIANS -->
+      <div class="tl-track">
+        <div class="track-label">Olympians</div>
+        <div class="track-body" id="t-olympians"></div>
+      </div>
+
+      <!-- TRACK: MANKIND -->
+      <div class="tl-track" style="min-height:60px;">
+        <div class="track-label">Mankind</div>
+        <div class="track-body" id="t-mankind"></div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- TOOLTIP -->
+<div class="tl-tooltip" id="tooltip">
+  <p class="tl-tooltip-title" id="tt-title"></p>
+  <p class="tl-tooltip-text" id="tt-text"></p>
+  <a class="tl-tooltip-link" id="tt-link" href="#"></a>
+</div>
+
+<div style="max-width:1200px; margin:0 auto; padding:1rem 2rem 0;">
+  <p style="font-size:0.8rem; color:var(--text-dim); font-family:'Cormorant Garamond',serif; font-style:italic;">
+    Mythological time is not linear — these eras are symbolic sequences, not calendar dates. The horizontal axis represents narrative order, not years.
+  </p>
+</div>
+
+<footer style="margin-top:3rem;">
+  <p>Mythos — a personal mythology atlas</p>
+</footer>
+
+<script>
+const TOTAL_W = 1160; // px width of track-body area
+
+// Positions as % of total width
+const events = [
+  // COSMOS TRACK
+  { track:'t-cosmos', pct:5, color:'#4a9a7a', label:'Chaos emerges', title:'Chaos', text:'The formless void from which all creation arises. Not a god, but a condition — the yawning gap before differentiation.', link:'stories/chaos.html', linkText:'Read: Chaos and the First Void' },
+  { track:'t-cosmos', pct:12, color:'#4a9a7a', label:'Earth & Sky separate', title:'Gaia and Uranus', text:'Gaia, the Earth, arises from Chaos. She produces Uranus, the Sky, from herself alone. Sky presses down upon Earth.', link:'stories/chaos.html', linkText:'Read: Chaos and the First Void' },
+  { track:'t-cosmos', pct:58, color:'#c9a84c', label:'Three kingdoms divided', title:'Division of the Cosmos', text:'After the Titanomachy: Zeus takes the sky, Poseidon the seas, Hades the underworld. The cosmic order is fixed.', link:'index.html#stories', linkText:'Part IV (coming soon)' },
+
+  // PRIMORDIALS TRACK
+  { track:'t-primordials', pct:7, color:'#4a9a7a', label:'Nyx & Erebus', title:'Night and Darkness', text:'Among the first emanations from Chaos. From their union come Aether (bright air) and Hemera (Day) — the first opposites.', link:'characters/nyx.html', linkText:'Read: Nyx' },
+  { track:'t-primordials', pct:10, color:'#4a9a7a', label:'Gaia creates Uranus', title:'Gaia bears the Sky', text:'Gaia produces Uranus from herself alone, so that he might cover her entirely and provide a home for the gods to come.', link:'characters/gaia.html', linkText:'Read: Gaia' },
+  { track:'t-primordials', pct:18, color:'#b04040', label:'Uranus imprisons children', title:'The First Suppression', text:'Uranus shoves the Cyclopes and Hecatoncheires back into Gaia. The earth is in pain. Gaia begins to conspire.', link:'stories/titans.html', linkText:'Read: The Age of the Titans' },
+  { track:'t-primordials', pct:28, color:'#b04040', label:'Uranus castrated', title:'The Fall of Uranus', text:'Cronus ambushes his father with the adamantine sickle made by Gaia. Uranus is driven from his position, leaving only a prophecy behind.', link:'stories/titans.html', linkText:'Read: The Age of the Titans' },
+
+  // TITANS TRACK
+  { track:'t-titans', pct:22, color:'#c9a84c', label:'Golden Age of Cronus', title:'The Golden Age', text:'Cronus rules over an era of peace and abundance for mankind. Meanwhile he swallows each child born to him and Rhea.', link:'stories/titans.html', linkText:'Read: The Age of the Titans' },
+  { track:'t-titans', pct:35, color:'#b04040', label:'Cronus swallows five', title:'Cronus devours his children', text:'Hestia, Demeter, Hera, Hades, and Poseidon are swallowed at birth. Rhea endures in silence — until the sixth child.', link:'stories/titans.html', linkText:'Read: The Age of the Titans' },
+  { track:'t-titans', pct:42, color:'#4a9a7a', label:'Rhea deceives Cronus', title:'The Stone in Swaddling', text:'Rhea gives birth to Zeus in secret in Crete. She presents Cronus with a wrapped stone. He swallows it without looking.', link:'stories/titans.html', linkText:'Read: The Age of the Titans' },
+  { track:'t-titans', pct:70, color:'#b04040', label:'Titans imprisoned', title:'Titans cast into Tartarus', text:'Defeated in the Titanomachy, the Titans are cast into Tartarus and guarded by the Hecatoncheires. Atlas is condemned separately.', link:'stories/titanomachy.html', linkText:'Read: The Titanomachy' },
+
+  // CONFLICT TRACK
+  { track:'t-conflict', pct:48, color:'#b04040', label:'Titanomachy begins', title:'The War Begins', text:'Zeus frees the Cyclopes and Hecatoncheires from Tartarus. The Olympians take Mount Olympus; the Titans hold Mount Othrys.', link:'stories/titanomachy.html', linkText:'Read: The Titanomachy' },
+  { track:'t-conflict', pct:62, color:'#b04040', label:'Titans routed', title:'The Titanomachy Ends', text:'Ten years of war. The Hecatoncheires hurl three hundred boulders simultaneously. The Titans break. Zeus casts them into Tartarus.', link:'stories/titanomachy.html', linkText:'Read: The Titanomachy' },
+
+  // OLYMPIANS TRACK
+  { track:'t-olympians', pct:44, color:'#c9a84c', label:'Zeus freed & grows up', title:'Zeus in Crete', text:'Raised in secret on Mount Ida by Cretan nymphs. Reaches adulthood while his siblings are imprisoned in Cronus\'s stomach.', link:'stories/titans.html', linkText:'Read: The Age of the Titans' },
+  { track:'t-olympians', pct:48, color:'#c9a84c', label:'Olympians freed', title:'The Siblings Emerge', text:'Zeus gives Cronus an emetic. One by one: the stone, then Poseidon, Hades, Hera, Demeter, Hestia emerge — fully grown and furious.', link:'stories/titans.html', linkText:'Read: The Age of the Titans' },
+  { track:'t-olympians', pct:65, color:'#c9a84c', label:'Olympus established', title:'The Twelve Olympians', text:'The gods take Mount Olympus as their home. Zeus rules as king; the twelve Olympians divide domains of the cosmos between them.', link:'index.html#stories', linkText:'Part IV (coming soon)' },
+  { track:'t-olympians', pct:80, color:'#c9a84c', label:'Prometheus punished', title:'The Price of Fire', text:'Prometheus steals fire and gives it to mankind. Zeus chains him to a rock in the Caucasus, where an eagle eats his liver daily.', link:'characters/prometheus.html', linkText:'Read: Prometheus' },
+
+  // MANKIND TRACK
+  { track:'t-mankind', pct:66, color:'#cc7744', label:'Prometheus shapes mankind', title:'The Clay Figures', text:'In some accounts, Prometheus shapes the first humans from river clay and breathes life into them.', link:'characters/prometheus.html', linkText:'Read: Prometheus' },
+  { track:'t-mankind', pct:72, color:'#cc7744', label:'Fire given to humans', title:'The Theft of Fire', text:'Prometheus steals fire from Olympus in a hollow fennel stalk. Mankind gains fire — and Zeus gains a reason for rage.', link:'characters/prometheus.html', linkText:'Read: Prometheus' },
+  { track:'t-mankind', pct:78, color:'#cc7744', label:'Five Ages of Man', title:'Gold, Silver, Bronze, Heroes, Iron', text:'Hesiod describes five successive races of humanity, each more corrupted than the last. We live in the Iron Age — the worst.', link:'index.html#stories', linkText:'Part VI (coming soon)' },
+];
+
+// BARS (duration)
+const bars = [
+  { track:'t-titans', pct1:22, pct2:43, color:'rgba(201,168,76,0.18)', label:'Cronus rules', border:'rgba(201,168,76,0.3)' },
+  { track:'t-conflict', pct1:48, pct2:62, color:'rgba(176,64,64,0.25)', label:'Titanomachy (10 years)', border:'rgba(176,64,64,0.4)' },
+  { track:'t-olympians', pct1:65, pct2:100, color:'rgba(201,168,76,0.12)', label:'Olympian Age', border:'rgba(201,168,76,0.25)' },
+  { track:'t-cosmos', pct1:0, pct2:12, color:'rgba(74,154,122,0.12)', label:'Primordial emergence', border:'rgba(74,154,122,0.25)' },
+];
+
+function pctToPx(pct) { return (pct / 100) * TOTAL_W; }
+
+function renderBars() {
+  bars.forEach(b => {
+    const container = document.getElementById(b.track);
+    if (!container) return;
+    const bar = document.createElement('div');
+    bar.className = 'tl-bar';
+    bar.style.left = pctToPx(b.pct1) + 'px';
+    bar.style.width = pctToPx(b.pct2 - b.pct1) + 'px';
+    bar.style.background = b.color;
+    bar.style.border = '1px solid ' + b.border;
+    bar.style.color = 'var(--text-dim)';
+    bar.textContent = b.label;
+    container.appendChild(bar);
+  });
+}
+
+function renderEvents() {
+  const tooltip = document.getElementById('tooltip');
+  const ttTitle = document.getElementById('tt-title');
+  const ttText = document.getElementById('tt-text');
+  const ttLink = document.getElementById('tt-link');
+
+  events.forEach(ev => {
+    const container = document.getElementById(ev.track);
+    if (!container) return;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'tl-event';
+    wrap.style.left = pctToPx(ev.pct) + 'px';
+
+    const dot = document.createElement('div');
+    dot.className = 'tl-event-dot';
+    dot.style.background = ev.color;
+
+    const lbl = document.createElement('div');
+    lbl.className = 'tl-event-label';
+    lbl.textContent = ev.label;
+
+    wrap.appendChild(dot);
+    wrap.appendChild(lbl);
+    container.appendChild(wrap);
+
+    wrap.addEventListener('mouseenter', (e) => {
+      ttTitle.textContent = ev.title;
+      ttText.textContent = ev.text;
+      ttLink.textContent = '→ ' + ev.linkText;
+      ttLink.href = ev.link;
+      tooltip.classList.add('visible');
+      positionTooltip(e);
+    });
+    wrap.addEventListener('mousemove', positionTooltip);
+    wrap.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('visible');
+    });
+    wrap.addEventListener('click', () => {
+      window.location.href = ev.link;
+    });
+  });
+
+  function positionTooltip(e) {
+    const tw = tooltip.offsetWidth || 260;
+    const th = tooltip.offsetHeight || 120;
+    let x = e.clientX + 16;
+    let y = e.clientY - th / 2;
+    if (x + tw > window.innerWidth - 16) x = e.clientX - tw - 16;
+    if (y < 8) y = 8;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  }
+}
+
+// Drag to scroll
+const wrap = document.getElementById('tlWrap');
+let isDown = false, startX, scrollLeft;
+wrap.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - wrap.offsetLeft; scrollLeft = wrap.scrollLeft; });
+wrap.addEventListener('mouseleave', () => isDown = false);
+wrap.addEventListener('mouseup', () => isDown = false);
+wrap.addEventListener('mousemove', e => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - wrap.offsetLeft;
+  wrap.scrollLeft = scrollLeft - (x - startX);
+});
+
+renderBars();
+renderEvents();
+</script>
+
+</body>
+</html>

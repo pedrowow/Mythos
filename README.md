@@ -24,6 +24,7 @@ characters/
   nyx.html
 ```
 
+
 ## Adding new stories
 
 Each story follows the same template as the existing ones:

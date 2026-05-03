@@ -1,19 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap');
 
 :root {
-  --bg: #0e0c0a;
-  --bg-surface: #161310;
-  --bg-card: #1c1814;
+  --bg: #0a0f0c;
+  --bg-surface: #0f1510;
+  --bg-card: #141c15;
   --gold: #c9a84c;
   --gold-light: #e8c97a;
-  --gold-dim: #7a5e28;
-  --text: #e8e0d0;
-  --text-muted: #9a8f7e;
-  --text-dim: #5a5040;
-  --border: rgba(201, 168, 76, 0.15);
-  --border-hover: rgba(201, 168, 76, 0.35);
-  --red: #c04040;
-  --teal: #4a9a8a;
+  --gold-dim: #7a6028;
+  --text: #e2ded4;
+  --text-muted: #94907e;
+  --text-dim: #4a4a3a;
+  --border: rgba(120, 180, 120, 0.12);
+  --border-hover: rgba(180, 210, 140, 0.28);
+  --green-accent: #4a7a5a;
+  --green-dim: #2a4a32;
+  --red: #b04040;
+  --teal: #4a9a7a;
   --radius: 4px;
 }
 
@@ -38,7 +40,7 @@ header {
   justify-content: space-between;
   position: sticky;
   top: 0;
-  background: rgba(14,12,10,0.96);
+  background: rgba(10,15,12,0.96);
   backdrop-filter: blur(8px);
   z-index: 100;
 }
@@ -178,6 +180,16 @@ nav a:hover { color: var(--gold-light); }
 
 .story-card:hover { background: var(--bg-card); }
 .story-card:hover::before { height: 100%; }
+
+.card-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--green-dim);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  display: block;
+}
 
 .card-era {
   font-family: 'Cormorant Garamond', serif;
@@ -365,17 +377,25 @@ nav a:hover { color: var(--gold-light); }
   aspect-ratio: 16/7;
   object-fit: cover;
   border-radius: var(--radius);
-  margin-bottom: 2.5rem;
-  filter: sepia(20%) brightness(0.85);
+  margin-bottom: 0.6rem;
+  filter: sepia(15%) brightness(0.82) saturate(0.9);
 }
 
 .story-image-caption {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-dim);
   font-style: italic;
-  margin-top: -2rem;
   margin-bottom: 2.5rem;
   text-align: right;
+}
+
+.story-image-half {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin: 2rem 0 0.6rem;
+  filter: sepia(15%) brightness(0.82) saturate(0.9);
 }
 
 .story-body {
@@ -403,7 +423,6 @@ nav a:hover { color: var(--gold-light); }
   margin: 2rem 0 0.75rem;
 }
 
-/* Character links inside story text */
 .char-link {
   color: var(--gold-light);
   text-decoration: none;
@@ -416,17 +435,15 @@ nav a:hover { color: var(--gold-light); }
   border-color: var(--gold);
 }
 
-/* Story links to related stories */
 .story-link {
   color: var(--teal);
   text-decoration: none;
-  border-bottom: 1px solid rgba(74,154,138,0.3);
+  border-bottom: 1px solid rgba(74,154,122,0.3);
   transition: border-color 0.15s;
 }
 
 .story-link:hover { border-color: var(--teal); }
 
-/* Pull quote */
 .pull-quote {
   border-left: 2px solid var(--gold);
   padding: 1rem 0 1rem 1.75rem;
@@ -545,8 +562,6 @@ nav a:hover { color: var(--gold-light); }
   font-size: 2rem;
 }
 
-.character-name-block {}
-
 .character-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 2.5rem;
@@ -576,6 +591,32 @@ nav a:hover { color: var(--gold-light); }
   border: 1px solid var(--border);
   padding: 0.25rem 0.7rem;
   border-radius: 2px;
+}
+
+.character-image {
+  width: 100%;
+  aspect-ratio: 16/7;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin: 1.5rem 0 0.5rem;
+  filter: sepia(15%) brightness(0.82) saturate(0.9);
+}
+
+.character-image-sm {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin: 1.5rem 0 0.5rem;
+  filter: sepia(15%) brightness(0.82) saturate(0.9);
+}
+
+.image-caption {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  text-align: right;
 }
 
 .character-body {
@@ -626,4 +667,16 @@ footer p {
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   color: var(--text-dim);
+}
+
+/* TIMELINE PAGE */
+.timeline-page {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.timeline-container {
+  overflow-x: auto;
+  padding-bottom: 2rem;
 }
