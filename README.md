@@ -2,6 +2,8 @@
 
 A personal reading site for Greek mythology: narrative-driven stories, connected characters, readable on any device.
 
+Code created by Claude.
+
 ## Structure
 
 ```
