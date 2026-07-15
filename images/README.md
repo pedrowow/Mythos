@@ -26,17 +26,14 @@ resized to max 1600px wide, compressed as JPEG quality 80, kebab-case filenames.
 - [x] apollo-belvedere-vatican.jpg (characters/apollo.html)
 - [x] diana-of-versailles-louvre.jpg (characters/artemis.html)
 
+- [x] ares-ludovisi-roman-marble.jpg (characters/ares.html)
+- [x] aphrodite-of-melos-louvre.jpg (characters/aphrodite.html)
+- [x] hephaisteion-temple-athens.jpg (characters/hephaestus.html)
+- [x] dionysus-ship-kylix-exekias-munich.jpg (characters/dionysus.html)
+
 ## Still wanted
 
-- [ ] ares-ludovisi-roman-marble.jpg (characters/ares.html)
-      The Ludovisi Ares, Roman marble with Eros at his feet, Palazzo Altemps, Rome.
-- [ ] aphrodite-of-melos-louvre.jpg (characters/aphrodite.html)
-      The Aphrodite of Melos (Venus de Milo), c. 130-100 BC, Musée du Louvre.
-- [ ] hephaisteion-temple-athens.jpg (characters/hephaestus.html)
-      The Temple of Hephaestus (Hephaisteion) above the Athenian Agora.
-- [ ] dionysus-ship-kylix-exekias-munich.jpg (characters/dionysus.html)
-      Exekias, Dionysus in a Sailing Ship, black-figure kylix interior, c. 530 BC,
-      Staatliche Antikensammlungen, Munich.
+Nothing. Every image referenced on the site is present as of 2026-07-15.
 
 Pages hide missing images gracefully via their onerror attribute, so absent files
 never show as broken; the slot simply does not render.
