@@ -14,7 +14,8 @@ This directory contains images for the site, sourced from Wikimedia Commons.
 - cornelis-van-haarlem-fall-of-titans-1588-1590.jpg (stories/titanomachy.html)
 - farnese-atlas-roman-marble-2nd-century.jpg (stories/titanomachy.html)
 - dirck-van-baburen-prometheus-chained-1623.jpg (characters/prometheus.html)
-- hermes-and-infant-dionysus-praxiteles-olympia.jpg (characters/hermes.html) — Hermes and the Infant Dionysus, attributed to Praxiteles, c. 340 BC, Archaeological Museum of Olympia
+- [x] hermes-and-infant-dionysus-praxiteles-olympia.jpg (characters/hermes.html) — Hermes and the Infant Dionysus, attributed to Praxiteles, c. 340 BC, Archaeological Museum of Olympia — PRESENT
+- [x] hermes-and-infant-dionysus-praxiteles-detail.jpg (characters/hermes.html) — detail of the same statue, head of Hermes and the infant Dionysus — PRESENT
 
 All images should be:
 1. Downloaded from Wikimedia Commons (public domain)

@@ -716,6 +716,36 @@ nav a:hover { color: var(--gold-light); }
   text-align: right;
 }
 
+/* Paired portrait images (statues, vases) shown side by side */
+.image-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 1.5rem 0 0.5rem;
+  align-items: start;
+}
+
+.image-pair figure { margin: 0; }
+
+.image-pair img {
+  width: 100%;
+  border-radius: var(--radius);
+  filter: var(--img-filter);
+  display: block;
+}
+
+.image-pair figcaption {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .image-pair { grid-template-columns: 1fr; }
+}
+
 .character-body {
   font-size: 1.05rem;
   line-height: 1.85;
