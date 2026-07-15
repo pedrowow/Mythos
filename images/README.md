@@ -22,15 +22,21 @@ resized to max 1600px wide, compressed as JPEG quality 80, kebab-case filenames.
 - [x] hera-campana-louvre-2nd-century.jpg (characters/hera.html; rotated upright)
 - [x] poseidon-artemision-bronze-athens.jpg (characters/poseidon.html)
 
+- [x] athena-varvakeion-parthenos-athens.jpg (characters/athena.html; helmet detail shot, caption adjusted)
+- [x] apollo-belvedere-vatican.jpg (characters/apollo.html)
+- [x] diana-of-versailles-louvre.jpg (characters/artemis.html)
+
 ## Still wanted
 
-- [ ] athena-varvakeion-parthenos-athens.jpg (characters/athena.html)
-      The Varvakeion Athena, Roman marble copy of Phidias's Athena Parthenos,
-      National Archaeological Museum, Athens.
-- [ ] apollo-belvedere-vatican.jpg (characters/apollo.html)
-      The Apollo Belvedere, Roman marble, Vatican Museums.
-- [ ] diana-of-versailles-louvre.jpg (characters/artemis.html)
-      Artemis with a Hind (the Diana of Versailles), Roman marble, Musée du Louvre.
+- [ ] ares-ludovisi-roman-marble.jpg (characters/ares.html)
+      The Ludovisi Ares, Roman marble with Eros at his feet, Palazzo Altemps, Rome.
+- [ ] aphrodite-of-melos-louvre.jpg (characters/aphrodite.html)
+      The Aphrodite of Melos (Venus de Milo), c. 130-100 BC, Musée du Louvre.
+- [ ] hephaisteion-temple-athens.jpg (characters/hephaestus.html)
+      The Temple of Hephaestus (Hephaisteion) above the Athenian Agora.
+- [ ] dionysus-ship-kylix-exekias-munich.jpg (characters/dionysus.html)
+      Exekias, Dionysus in a Sailing Ship, black-figure kylix interior, c. 530 BC,
+      Staatliche Antikensammlungen, Munich.
 
 Pages hide missing images gracefully via their onerror attribute, so absent files
 never show as broken; the slot simply does not render.
