@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Timeline — Mythos</title>
+    <script>(function(){var t=localStorage.getItem('mythos-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();</script>
   <link rel="stylesheet" href="css/style.css" />
   <style>
     .tl-wrap {
@@ -238,6 +239,7 @@
     <a href="characters.html">Characters</a>
     <a href="timeline.html" style="color:var(--gold);">Timeline</a>
     <a href="index.html#stories">Stories</a>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">☾</button>
   </nav>
 </header>
 
@@ -476,5 +478,6 @@ renderBars();
 renderEvents();
 </script>
 
+<script src="js/theme.js" defer></script>
 </body>
 </html>

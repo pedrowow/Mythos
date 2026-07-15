@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Characters — Mythos</title>
+    <script>(function(){var t=localStorage.getItem('mythos-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();</script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -14,6 +15,7 @@
     <a href="characters.html">Characters</a>
     <a href="timeline.html">Timeline</a>
     <a href="index.html#stories">Stories</a>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">☾</button>
   </nav>
 </header>
 
@@ -111,5 +113,6 @@
   <p>Mythos — a personal mythology atlas</p>
 </footer>
 
+<script src="js/theme.js" defer></script>
 </body>
 </html>
