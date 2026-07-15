@@ -17,20 +17,20 @@ resized to max 1600px wide, compressed as JPEG quality 80, kebab-case filenames.
 - [x] hermes-and-infant-dionysus-praxiteles-olympia.jpg (characters/hermes.html)
 - [x] hermes-and-infant-dionysus-praxiteles-detail.jpg (characters/hermes.html)
 
+- [x] zeus-of-smyrna-louvre-ma13.jpg (characters/zeus.html, stories/titanomachy.html) — the Zeus of Smyrna, standing figure; captions corrected from the old wrong "enthroned" description
+- [x] demeter-of-knidos-british-museum.jpg (characters/demeter.html)
+- [x] hera-campana-louvre-2nd-century.jpg (characters/hera.html; rotated upright)
+- [x] poseidon-artemision-bronze-athens.jpg (characters/poseidon.html)
+
 ## Still wanted
 
-- [ ] zeus-enthroned-roman-copy-1st-2nd-century.jpg (characters/zeus.html, stories/titanomachy.html)
-      Wanted: the Jupiter of Smyrna, Musée du Louvre (Ma 13). The first supplied file was a
-      different statue from a Sotheby's auction page (headless seated relief), not public
-      domain and not matching the caption, so it was not used. Wikimedia Commons file:
-      "Jupiter Smyrna Louvre Ma13.jpg".
-- [ ] demeter-of-knidos-british-museum.jpg (characters/demeter.html)
-      The Demeter of Knidos, c. 350 BC, British Museum.
-- [ ] hera-campana-louvre-2nd-century.jpg (characters/hera.html)
-      The Campana Hera, Roman marble, Musée du Louvre.
-- [ ] poseidon-artemision-bronze-athens.jpg (characters/poseidon.html)
-      The Artemision Bronze (Zeus or Poseidon), c. 460 BC, National Archaeological
-      Museum, Athens.
+- [ ] athena-varvakeion-parthenos-athens.jpg (characters/athena.html)
+      The Varvakeion Athena, Roman marble copy of Phidias's Athena Parthenos,
+      National Archaeological Museum, Athens.
+- [ ] apollo-belvedere-vatican.jpg (characters/apollo.html)
+      The Apollo Belvedere, Roman marble, Vatican Museums.
+- [ ] diana-of-versailles-louvre.jpg (characters/artemis.html)
+      Artemis with a Hind (the Diana of Versailles), Roman marble, Musée du Louvre.
 
 Pages hide missing images gracefully via their onerror attribute, so absent files
 never show as broken; the slot simply does not render.
