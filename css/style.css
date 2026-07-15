@@ -724,6 +724,140 @@ nav a:hover { color: var(--gold-light); }
 
 .character-body p { margin-bottom: 1.4rem; }
 
+.character-body h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--gold-light);
+  margin: 3rem 0 1rem;
+  line-height: 1.3;
+}
+
+.character-body h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text);
+  margin: 2rem 0 0.6rem;
+}
+
+.dossier-section-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  display: block;
+  margin: 3rem 0 -0.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+/* EPITHET LIST */
+.epithet-list {
+  list-style: none;
+  margin: 1.5rem 0;
+}
+
+.epithet-list li {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.epithet-list li:last-child { border-bottom: none; }
+
+.epithet-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  color: var(--gold-light);
+}
+
+.epithet-meaning {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-left: 0.5rem;
+}
+
+.epithet-list p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0.3rem 0 0;
+  line-height: 1.7;
+}
+
+/* CORRESPONDENCES PANEL */
+.corr-panel {
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+  padding: 2rem;
+  margin: 1.5rem 0;
+}
+
+.corr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.corr-item {}
+
+.corr-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.corr-value {
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.corr-flag {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.corr-note {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* RELATIONS */
+.relations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.relation-group {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  background: var(--bg-surface);
+}
+
+.relation-group .corr-label { margin-bottom: 0.6rem; }
+
+.relation-group p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.8;
+}
+
 .appears-in {
   margin-top: 2.5rem;
   padding-top: 2rem;
